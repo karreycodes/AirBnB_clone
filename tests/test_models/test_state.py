@@ -1,37 +1,23 @@
 #!/usr/bin/python3
-"""Test State"""
-from models.amenity import Amenity
-from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
-import pep8
+"""Test suite for the State class of the models.state module"""
 import unittest
 
+from models.base_model import BaseModel
+from models.state import State
 
-class Teststate(unittest.TestCase):
-    """
-    Unittests for the State class.
-    """
 
-    def test_pep8_conformance_state(self):
-        """Test that we conform to PEP8."""
-        pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['models/state.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
+class TestState(unittest.TestCase):
+    """Test cases for the State class"""
 
-    def test_class(self):
-        """
-        Tests if class is named correctly.
-        """
-        state1 = State()
-        self.assertEqual(state1.__class__.__name__, "State")
+    def setUp(self):
+        self.state = State()
 
-    def test_father(self):
-        """
-        Tests if Class inherits from BaseModel.
-        """
-        state1 = State()
-        self.assertEqual(state1.__class__.__name__, "State")
+    def test_state_is_a_subclass_of_basemodel(self):
+        self.assertTrue(issubclass(type(self.state), BaseModel))
+
+    def test_attr_is_a_class_attr(self):
+        self.assertTrue(hasattr(self.state, "name"))
+
+    def test_class_attrs(self):
+        self.assertIs(type(self.state.name), str)
+        self.assertFalse(bool(self.state.name))

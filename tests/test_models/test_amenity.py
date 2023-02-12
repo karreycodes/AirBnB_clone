@@ -1,37 +1,23 @@
 #!/usr/bin/python3
-"""Test Amenity"""
-from models.amenity import Amenity
-from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
+"""Test suite for Amenity class of the models.amenity module"""
 import unittest
-import pep8
+
+from models.base_model import BaseModel
+from models.amenity import Amenity
 
 
-class Testamenity(unittest.TestCase):
-    """
-    unit test for amenity class
-    """
+class TestAmenity(unittest.TestCase):
+    """Test cases for the Amenity class"""
 
-    def test_pep8_conformance_amenity(self):
-        """Test that we conform to PEP8."""
-        pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['models/amenity.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
+    def setUp(self):
+        self.amenity = Amenity()
 
-    def test_class(self):
-        """
-        Tests if the class is named correctly.
-        """
-        amenity1 = Amenity()
-        self.assertEqual(amenity1.__class__.__name__, "Amenity")
+    def test_amenity_is_a_subclass_of_basemodel(self):
+        self.assertTrue(issubclass(type(self.amenity), BaseModel))
 
-    def test_father(self):
-        """
-        Tests if class inherits from BaseModel.
-        """
-        amenity1 = Amenity()
-        self.assertTrue(issubclass(amenity1.__class__, BaseModel))
+    def test_attr_is_a_class_attr(self):
+        self.assertTrue(hasattr(self.amenity, "name"))
+
+    def test_class_attr(self):
+        self.assertIs(type(self.amenity.name), str)
+        self.assertFalse(bool(getattr(self.amenity, "name")))

@@ -1,36 +1,22 @@
 #!/usr/bin/python3
-"""Test City"""
-from models.amenity import Amenity
-from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
-import pep8
+"""Test suite for the City class of the models.city module"""
 import unittest
 
+from models.base_model import BaseModel
+from models.city import City
 
-class Testcity(unittest.TestCase):
-    """
-    Unittests for the City class.
-    """
-    def test_pep8_conformance_city(self):
-        """Test that we conform to PEP8."""
-        pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['models/city.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
 
-    def test_class(self):
-        """
-        Tests if class is named correctly.
-        """
-        city1 = City()
-        self.assertEqual(city1.__class__.__name__, "City")
+class TestCity(unittest.TestCase):
+    """Test cases for the City class"""
 
-    def test_father(self):
-        """
-        Tests if Class inherits from BaseModel.
-        """
-        city1 = City()
-        self.assertTrue(issubclass(city1.__class__, BaseModel))
+    def setUp(self):
+        self.city = City()
+        self.attr_list = ["state_id", "name"]
+
+    def test_city_is_a_subclass_of_basemodel(self):
+        self.assertTrue(issubclass(type(self.city), BaseModel))
+
+    def test_attrs_are_class_attrs(self):
+        for attr in self.attr_list:
+            self.assertIs(type(getattr(self.city, attr)), str)
+            self.assertFalse(bool(getattr(self.city, attr)))
